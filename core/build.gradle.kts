@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -81,62 +82,49 @@ android {
 
 dependencies {
 
-    api(libs.androidx.core.ktx)
-    api(libs.androidx.lifecycle.runtime.ktx)
-    api(libs.androidx.activity.compose)
-    api(platform(libs.androidx.compose.bom))
-    api(libs.androidx.ui)
-    api(libs.androidx.ui.graphics)
-    api(libs.androidx.ui.tooling.preview)
-    api(libs.androidx.material)
-    api(libs.androidx.material3)
-    api(libs.androidx.ui.test.android)
-    api(libs.androidx.runtime.livedata)
-    api(libs.androidx.appcompat)
-    api(libs.androidx.constraintlayout)
-    api(libs.androidx.navigation.testing)
-    api(libs.hilt.android.testing)
+    api(platform(libs.compose.bom))
+    api(libs.compose.activity)
+    api(libs.compose.ui)
+    api(libs.compose.material)
+    api(libs.compose.ui.graphics)
+    api(libs.compose.ui.preview)
+    api(libs.compose.destination)
+    ksp(libs.compose.destination.ksp)
+    api(libs.compose.navigation)
+    api(libs.compose.icons.extended)
+    api(libs.compose.lifecycle.viewmodel)
+    api(libs.compose.lifecycle.runtime)
 
-    debugApi(libs.androidx.ui.tooling)
-    debugApi(libs.androidx.ui.test.manifest)
+    api(libs.core.ktx)
+    api(libs.bundles.networking)
 
-    api(libs.androidx.core.splashscreen)
-    api(libs.androidx.navigation.compose)
-    implementation(libs.hilt.android)
+    api(libs.bundles.lifecycle)
+
+    api(libs.bundles.moshi)
+    ksp(libs.moshi.codegen)
+
+    api(libs.hilt.android)
+    api(libs.hilt.compose.navigation)
     ksp(libs.hilt.compiler)
-    api(libs.androidx.hilt.navigation.compose)
-    api(libs.retrofit)
-    api(libs.retrofit.gson)
-    api(libs.coil.compose)
-    api(libs.datastore.preferences)
-    api(libs.compose.foundation)
-    api(libs.kotlinx.serialization)
-    api(libs.paging.runtime)
-    api(libs.paging.compose)
-    api(libs.room.runtime)
-    ksp(libs.room.compiler)
-    api(libs.room.ktx)
-    api(libs.okhttp)
-    api(libs.okhttp.logging.interceptor)
 
-    api(platform(libs.firebase.bom))
-    api(libs.firebase.analytics)
+    api(libs.bundles.room)
+    ksp(libs.room.compiler)
+
+    api(libs.coil)
+
+    api(libs.bundles.media3)
+
+    api(libs.accompanist)
+
+    api(libs.appcompat)
+
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
 
     testImplementation(libs.junit)
-    testImplementation(libs.mockk)
-    testImplementation(libs.coroutines.test)
-    testImplementation(libs.turbine)
-    testImplementation(libs.truth)
-    androidTestImplementation(libs.hilt.android.testing)
-    androidTestImplementation(libs.turbine)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.coroutines.test)
-    androidTestImplementation(libs.mockk.android)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.espresso.core)
 
-    debugImplementation(libs.chuck.debug)
-    releaseImplementation(libs.chuck.release)
+    debugApi(libs.compose.ui.tooling)
+    debugApi(libs.compose.ui.manifest)
 }
