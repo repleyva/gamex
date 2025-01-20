@@ -2,26 +2,23 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace = "com.repleyva.gamexapp"
+    namespace = "com.repleyva.core"
     compileSdk = 35
 
     val properties = Properties()
     properties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
-        applicationId = "com.repleyva.gamexapp"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -41,8 +38,11 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            isMinifyEnabled = false
         }
     }
     compileOptions {
@@ -81,17 +81,50 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
+
+    api(platform(libs.compose.bom))
+    api(libs.compose.activity)
+    api(libs.compose.ui)
+    api(libs.compose.material)
+    api(libs.compose.ui.graphics)
+    api(libs.compose.ui.preview)
+    api(libs.compose.destination)
+    ksp(libs.compose.destination.ksp)
+    api(libs.compose.navigation)
+    api(libs.compose.icons.extended)
+    api(libs.compose.lifecycle.viewmodel)
+    api(libs.compose.lifecycle.runtime)
+
+    api(libs.core.ktx)
+    api(libs.bundles.networking)
+
+    api(libs.bundles.lifecycle)
+
+    api(libs.bundles.moshi)
+    ksp(libs.moshi.codegen)
+
+    api(libs.hilt.android)
+    api(libs.hilt.compose.navigation)
+    ksp(libs.hilt.compiler)
+
+    api(libs.bundles.room)
+    ksp(libs.room.compiler)
+
+    api(libs.coil)
+
+    api(libs.bundles.media3)
+
+    api(libs.accompanist)
+
+    api(libs.appcompat)
+
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.espresso.core)
 
-    ksp(libs.compose.destination.ksp)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-}
-
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
+    debugApi(libs.compose.ui.tooling)
+    debugApi(libs.compose.ui.manifest)
 }
