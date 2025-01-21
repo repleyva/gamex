@@ -1,7 +1,7 @@
 package com.repleyva.core.domain.use_cases
 
 import com.repleyva.core.domain.model.Game
-import com.repleyva.core.vo.Resource
+import com.repleyva.core.domain.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface GameUseCase {
