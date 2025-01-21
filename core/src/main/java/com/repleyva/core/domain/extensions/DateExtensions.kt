@@ -1,4 +1,4 @@
-package com.repleyva.core.extensions
+package com.repleyva.core.domain.extensions
 
 import com.repleyva.core.domain.enums.ConverterDate
 import com.repleyva.core.domain.enums.Range

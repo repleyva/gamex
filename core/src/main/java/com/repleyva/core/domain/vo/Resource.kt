@@ -1,4 +1,4 @@
-package com.repleyva.core.vo
+package com.repleyva.core.domain.vo
 
 sealed class Resource<out T: Any> {
     data class Success<out T: Any>(val data: T): Resource<T>()

@@ -1,4 +1,4 @@
-package com.repleyva.core.data.source.remote.model
+package com.repleyva.core.data.remote.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -1,10 +1,10 @@
-package com.repleyva.core.data.source.local.entity
+package com.repleyva.core.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.repleyva.core.data.source.remote.model.GameItem
-import com.repleyva.core.extensions.toDate
+import com.repleyva.core.data.remote.model.GameItem
+import com.repleyva.core.domain.extensions.toDate
 import java.util.Date
 
 @Entity(tableName = "game")

@@ -1,10 +1,10 @@
 package com.repleyva.core.domain.model
 
 import android.os.Parcelable
-import com.repleyva.core.data.source.local.entity.GameEntity
-import com.repleyva.core.data.source.remote.model.GameItem
+import com.repleyva.core.data.local.entity.GameEntity
+import com.repleyva.core.data.remote.model.GameItem
 import com.repleyva.core.domain.enums.ConverterDate
-import com.repleyva.core.extensions.toString
+import com.repleyva.core.domain.extensions.toString
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
