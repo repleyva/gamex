@@ -2,6 +2,7 @@ package com.repleyva.core.app.di
 
 import android.content.Context
 import androidx.room.Room
+import com.repleyva.core.data.local.dao.GameDao
 import com.repleyva.core.data.local.room.GameDatabase
 import dagger.Module
 import dagger.Provides
@@ -23,4 +24,11 @@ object PersistenceModule {
             "game_database"
         ).fallbackToDestructiveMigration().build()
     }
+
+    @Provides
+    @Singleton
+    fun provideGameDao(database: GameDatabase): GameDao {
+        return database.gameDao()
+    }
+
 }

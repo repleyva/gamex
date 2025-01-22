@@ -26,6 +26,6 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindGameUsecase(gameInteractor: GameInteractor): GameUseCase
+    abstract fun bindGameUseCase(gameInteractor: GameInteractor): GameUseCase
 
 }

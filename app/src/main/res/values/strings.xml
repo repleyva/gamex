@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GamexApp</string>
+    <string name="app_name">Gamex</string>
     <string name="app_description">Largest Game Database</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
