@@ -110,7 +110,7 @@ dependencies {
     api(libs.bundles.room)
     ksp(libs.room.compiler)
 
-    api(libs.coil)
+    api(libs.bundles.coil)
 
     api(libs.bundles.media3)
 

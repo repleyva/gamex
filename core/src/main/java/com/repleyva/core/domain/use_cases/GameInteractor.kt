@@ -6,37 +6,37 @@ import com.repleyva.core.domain.vo.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GameInteractor @Inject constructor(private val repo: GamesRepository) : GameUseCase {
+class GameInteractor @Inject constructor(private val repository: GamesRepository) : GameUseCase {
 
     override fun getAllGames(): Flow<Resource<List<Game>>> {
-        return repo.getAllGames()
+        return repository.getAllGames()
     }
 
     override fun getHotGames(): Flow<Resource<List<Game>>> {
-        return repo.getHotGames()
+        return repository.getHotGames()
     }
 
     override suspend fun setIsFavorites(
         isFavorites: Boolean,
         id: Long,
     ) {
-        repo.setIsFavorites(isFavorites, id)
+        repository.setIsFavorites(isFavorites, id)
     }
 
     override fun getBookmarkedGames(): Flow<List<Game>> {
-        return repo.getAllFavoritesGames()
+        return repository.getAllFavoritesGames()
     }
 
     override fun getGameDetails(id: Long): Flow<Resource<Game>> {
-        return repo.getGameDetails(id)
+        return repository.getGameDetails(id)
     }
 
     override fun fetchGameTrailer(id: Long): Flow<Resource<Game>> {
-        return repo.getGameTrailer(id)
+        return repository.getGameTrailer(id)
     }
 
     override fun searchGames(query: String): Flow<Resource<List<Game>>> {
-        return repo.searchGame(query)
+        return repository.searchGame(query)
     }
 
 }
