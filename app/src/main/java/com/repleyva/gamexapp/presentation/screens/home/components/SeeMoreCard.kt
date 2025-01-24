@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.repleyva.gamexapp.R
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral20
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral50
 
@@ -28,7 +30,7 @@ fun SeeMoreCard(modifier: Modifier = Modifier) {
             .clickable { }
     ) {
         Text(
-            text = "See more",
+            text = stringResource(R.string.copy_see_more),
             style = MaterialTheme.typography.bodySmall,
             color = Neutral50,
             modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)

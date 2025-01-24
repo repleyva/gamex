@@ -16,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.repleyva.gamexapp.R
 import com.repleyva.gamexapp.presentation.components.Gap
 import com.repleyva.gamexapp.presentation.components.LaunchEffectOnce
 import com.repleyva.gamexapp.presentation.screens.home.HomeScreenEvent.*
@@ -72,7 +74,7 @@ private fun HomeBody(
         }
 
         item {
-            SectionTitle(title = "Hot Games")
+            SectionTitle(title = stringResource(R.string.copy_hot_games))
         }
 
         item {
@@ -84,7 +86,7 @@ private fun HomeBody(
 
         item {
             Gap(vertical = 8.dp)
-            SectionTitle(title = "Popular Games")
+            SectionTitle(title = stringResource(R.string.copt_popular_games))
         }
 
         items(items = state.games, key = { it.id }) {
