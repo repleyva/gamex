@@ -48,7 +48,7 @@ fun TopBar(modifier: Modifier = Modifier) {
                 color = Primary50,
             )
             Text(
-                text = "Largest Game Database",
+                text = stringResource(R.string.copy_app_description),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Neutral50,
             )
