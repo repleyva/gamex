@@ -10,4 +10,10 @@
     <string name="copy_hot_games">Hot Games</string>
     <string name="copy_app_description">Largest Game Database</string>
     <string name="copy_see_more">See more</string>
+    <string name="copy_screenshots">Screenshots</string>
+    <string name="copy_rating">Rating</string>
+    <string name="copy_genre">Genre</string>
+    <string name="copy_released">Released</string>
+    <string name="copy_metascore">Metascore</string>
+    <string name="copy_description">Description</string>
 </resources>
