@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -84,10 +85,20 @@ dependencies {
     implementation(project(":core"))
 
     testImplementation(libs.junit)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.androidx.junit)
+    implementation(libs.androidx.ui.test.android)
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+    testImplementation(libs.turbine)
+    androidTestImplementation(libs.turbine)
+    testImplementation(libs.coroutines.test)
+    androidTestImplementation(libs.coroutines.test)
+    implementation(libs.androidx.navigation.testing)
+    testImplementation(libs.truth)
+    androidTestImplementation(libs.truth)
 
-    ksp(libs.compose.destination.ksp)
+    implementation(libs.kotlinx.serialization)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 }

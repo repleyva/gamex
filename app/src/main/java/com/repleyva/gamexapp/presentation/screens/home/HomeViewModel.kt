@@ -1,16 +1,12 @@
 package com.repleyva.gamexapp.presentation.screens.home
 
 import androidx.lifecycle.viewModelScope
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.repleyva.core.domain.model.Game
 import com.repleyva.core.domain.use_cases.GameUseCase
 import com.repleyva.core.domain.vo.Resource.Error
 import com.repleyva.core.domain.vo.Resource.Loading
 import com.repleyva.core.domain.vo.Resource.Success
 import com.repleyva.gamexapp.presentation.base.SimpleMVIBaseViewModel
-import com.repleyva.gamexapp.presentation.screens.destinations.DetailScreenDestination
 import com.repleyva.gamexapp.presentation.screens.home.HomeScreenEvent.Init
-import com.repleyva.gamexapp.presentation.screens.home.HomeScreenEvent.NavigateToDetailScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -23,19 +19,15 @@ class HomeViewModel @Inject constructor(
     private val gameUseCase: GameUseCase,
 ) : SimpleMVIBaseViewModel<HomeScreenState, HomeScreenEvent>() {
 
-    private var navigator: DestinationsNavigator? = null
-
     override fun initState(): HomeScreenState = HomeScreenState()
 
     override fun eventHandler(event: HomeScreenEvent) {
         when (event) {
-            is Init -> init(event.navigator)
-            is NavigateToDetailScreen -> navigateToDetailScreen(event.game)
+            is Init -> init()
         }
     }
 
-    private fun init(navigator: DestinationsNavigator) {
-        this.navigator = navigator
+    private fun init() {
         viewModelScope.launch {
             getAllGames()
             getHotGames()
@@ -68,10 +60,6 @@ class HomeViewModel @Inject constructor(
                 }
             }.launchIn(viewModelScope)
         }
-    }
-
-    private fun navigateToDetailScreen(game: Game) {
-        navigator?.navigate(DetailScreenDestination(game))
     }
 
 }

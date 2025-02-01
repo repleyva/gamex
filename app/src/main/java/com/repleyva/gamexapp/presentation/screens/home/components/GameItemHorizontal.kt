@@ -20,20 +20,19 @@ import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.presentation.components.CoilImage
 import com.repleyva.gamexapp.presentation.components.Gap
 import com.repleyva.gamexapp.presentation.extensions.shimmerEffect
-import com.repleyva.gamexapp.presentation.screens.home.HomeScreenEvent
 import com.repleyva.gamexapp.presentation.ui.theme.Primary80
 
 @Composable
 fun GameItemHorizontal(
     game: Game,
     modifier: Modifier = Modifier,
-    onEvent: (HomeScreenEvent) -> Unit,
+    onDetailScreen: (game: Game) -> Unit,
 ) {
     Column(
         modifier = modifier
             .width(140.dp)
             .clickable {
-                onEvent(HomeScreenEvent.NavigateToDetailScreen(game))
+                onDetailScreen(game)
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)

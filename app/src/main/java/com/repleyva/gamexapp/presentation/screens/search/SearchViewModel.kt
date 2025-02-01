@@ -1,14 +1,9 @@
 package com.repleyva.gamexapp.presentation.screens.search
 
 import androidx.lifecycle.viewModelScope
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.repleyva.core.domain.model.Game
 import com.repleyva.core.domain.use_cases.GameUseCase
 import com.repleyva.core.domain.vo.Resource
 import com.repleyva.gamexapp.presentation.base.SimpleMVIBaseViewModel
-import com.repleyva.gamexapp.presentation.screens.destinations.DetailScreenDestination
-import com.repleyva.gamexapp.presentation.screens.search.SearchScreenEvent.Init
-import com.repleyva.gamexapp.presentation.screens.search.SearchScreenEvent.NavigateToDetailScreen
 import com.repleyva.gamexapp.presentation.screens.search.SearchScreenEvent.OnSearchQueryChange
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -23,22 +18,14 @@ class SearchViewModel @Inject constructor(
     private val gameUseCase: GameUseCase,
 ) : SimpleMVIBaseViewModel<SearchScreenState, SearchScreenEvent>() {
 
-    private var navigator: DestinationsNavigator? = null
-
     private var searchJob: Job? = null
 
     override fun initState(): SearchScreenState = SearchScreenState()
 
     override fun eventHandler(event: SearchScreenEvent) {
         when (event) {
-            is Init -> init(event.navigator)
-            is NavigateToDetailScreen -> navigateToDetailScreen(event.game)
             is OnSearchQueryChange -> onSearchQueryChanged(event.query)
         }
-    }
-
-    private fun init(navigator: DestinationsNavigator) {
-        this.navigator = navigator
     }
 
     private fun onSearchQueryChanged(query: String) {
@@ -64,10 +51,6 @@ class SearchViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
-    }
-
-    private fun navigateToDetailScreen(game: Game) {
-        navigator?.navigate(DetailScreenDestination(game))
     }
 
 }

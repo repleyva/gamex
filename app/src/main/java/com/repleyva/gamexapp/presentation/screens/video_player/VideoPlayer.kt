@@ -19,9 +19,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-import com.ramcosta.composedestinations.annotation.Destination
 
-@Destination
 @Composable
 fun VideoPlayer(url: String) {
 

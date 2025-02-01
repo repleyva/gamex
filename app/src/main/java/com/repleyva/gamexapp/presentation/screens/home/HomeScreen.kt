@@ -1,6 +1,5 @@
 package com.repleyva.gamexapp.presentation.screens.home
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,12 +19,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.R
 import com.repleyva.gamexapp.presentation.components.Gap
 import com.repleyva.gamexapp.presentation.components.LaunchEffectOnce
-import com.repleyva.gamexapp.presentation.screens.home.HomeScreenEvent.*
+import com.repleyva.gamexapp.presentation.screens.home.HomeScreenEvent.Init
 import com.repleyva.gamexapp.presentation.screens.home.components.GameItem
 import com.repleyva.gamexapp.presentation.screens.home.components.GameItemHorizontal
 import com.repleyva.gamexapp.presentation.screens.home.components.GameItemHorizontalLoading
@@ -33,11 +31,10 @@ import com.repleyva.gamexapp.presentation.screens.home.components.GameItemLoadin
 import com.repleyva.gamexapp.presentation.screens.home.components.SectionTitle
 import com.repleyva.gamexapp.presentation.screens.home.components.TopBar
 
-@Destination(start = true)
 @Composable
 fun HomeScreen(
-    navigator: DestinationsNavigator,
     viewModel: HomeViewModel = hiltViewModel(),
+    onDetailScreen: (game: Game) -> Unit,
 ) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -49,12 +46,12 @@ fun HomeScreen(
     ) {
         HomeBody(
             state = state,
-            viewModel = viewModel
+            onDetailScreen = onDetailScreen
         )
     }
 
     LaunchEffectOnce {
-        viewModel.eventHandler(Init(navigator))
+        viewModel.eventHandler(Init)
     }
 }
 
@@ -62,7 +59,7 @@ fun HomeScreen(
 @OptIn(ExperimentalFoundationApi::class)
 private fun HomeBody(
     state: HomeScreenState,
-    viewModel: HomeViewModel,
+    onDetailScreen: (game: Game) -> Unit,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp),
@@ -80,8 +77,7 @@ private fun HomeBody(
         item {
             ItemsHorizontal(
                 state = state,
-                viewModel = viewModel
-            )
+            ) { game -> onDetailScreen(game) }
         }
 
         item {
@@ -93,7 +89,7 @@ private fun HomeBody(
             GameItem(
                 game = it,
                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
-            ) { game -> viewModel.eventHandler(NavigateToDetailScreen(game)) }
+            ) { game -> onDetailScreen(game) }
         }
 
         if (state.isLoading) {
@@ -105,7 +101,7 @@ private fun HomeBody(
 @Composable
 private fun ItemsHorizontal(
     state: HomeScreenState,
-    viewModel: HomeViewModel,
+    onDetailScreen: (game: Game) -> Unit,
 ) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
@@ -115,7 +111,7 @@ private fun ItemsHorizontal(
         items(items = state.hotGames, key = { it.id }) {
             GameItemHorizontal(
                 game = it,
-                onEvent = viewModel::eventHandler
+                onDetailScreen = onDetailScreen
             )
         }
 

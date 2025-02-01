@@ -6,8 +6,10 @@ import com.repleyva.core.data.remote.model.GameItem
 import com.repleyva.core.domain.enums.ConverterDate
 import com.repleyva.core.domain.extensions.toString
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 @Parcelize
+@Serializable
 data class Game(
     val id: Long,
     val slug: String,

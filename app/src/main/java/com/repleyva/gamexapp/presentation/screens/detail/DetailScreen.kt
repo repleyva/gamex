@@ -33,10 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.R
 import com.repleyva.gamexapp.presentation.components.Gap
@@ -55,12 +52,12 @@ import com.repleyva.gamexapp.presentation.ui.theme.Neutral40
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral50
 import com.repleyva.gamexapp.presentation.ui.theme.Primary70
 
-@Destination
 @Composable
 fun DetailScreen(
     game: Game,
-    navigator: DestinationsNavigator,
-    viewModel: DetailViewModel = hiltViewModel(),
+    viewModel: DetailViewModel,
+    onPlayTrailer: (String) -> Unit,
+    onNavigateBack: () -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -80,7 +77,9 @@ fun DetailScreen(
                 game = game,
                 viewModel = viewModel,
                 savedState = savedState,
-                context = context
+                context = context,
+                onPlayTrailer = onPlayTrailer,
+                onNavigateBack = onNavigateBack
             )
 
             state.shareSheetGame?.let {
@@ -98,7 +97,7 @@ fun DetailScreen(
     }
 
     LaunchEffectOnce {
-        viewModel.eventHandler(Init(game, navigator))
+        viewModel.eventHandler(Init(game))
     }
 }
 
@@ -108,6 +107,8 @@ private fun DetailBody(
     viewModel: DetailViewModel,
     savedState: MutableState<Boolean>,
     context: Context,
+    onPlayTrailer: (String) -> Unit,
+    onNavigateBack: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -116,7 +117,9 @@ private fun DetailBody(
 
         GamePoster(
             game = game,
-            onEvent = viewModel::eventHandler
+            onPlayTrailer = onPlayTrailer,
+            onNavigateBack = onNavigateBack,
+            onShareGame = { viewModel.eventHandler(ShareGame(game)) }
         )
 
         DetailsContent(
