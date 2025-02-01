@@ -30,14 +30,15 @@ import androidx.compose.ui.unit.dp
 import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.R
 import com.repleyva.gamexapp.presentation.components.CoilImage
-import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent
 import com.repleyva.gamexapp.presentation.ui.theme.Primary70
 
 @Composable
 fun GamePoster(
     game: Game,
     modifier: Modifier = Modifier,
-    onEvent: (DetailScreenEvent) -> Unit,
+    onPlayTrailer: (String) -> Unit,
+    onNavigateBack: () -> Unit,
+    onShareGame: (Game) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -57,14 +58,15 @@ fun GamePoster(
         )
 
         TopBar(
-            onEvent = onEvent,
-            game = game
+            game = game,
+            onNavigateBack = onNavigateBack,
+            onShareGame = onShareGame
         )
 
         if (!game.trailerUrl.isNullOrEmpty()) {
             ActionPlayTrailer(
                 game = game,
-                onEvent = onEvent,
+                onPlayTrailer = onPlayTrailer,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -73,8 +75,9 @@ fun GamePoster(
 
 @Composable
 private fun TopBar(
-    onEvent: (DetailScreenEvent) -> Unit,
     game: Game,
+    onNavigateBack: () -> Unit,
+    onShareGame: (Game) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -91,7 +94,7 @@ private fun TopBar(
             modifier = Modifier
                 .size(24.dp)
                 .clickable {
-                    onEvent(DetailScreenEvent.NavigateBack)
+                    onNavigateBack()
                 }
         )
 
@@ -102,7 +105,7 @@ private fun TopBar(
             modifier = Modifier
                 .size(24.dp)
                 .clickable {
-                    onEvent(DetailScreenEvent.ShareGame(game))
+                    onShareGame(game)
                 }
         )
     }
@@ -112,7 +115,7 @@ private fun TopBar(
 private fun ActionPlayTrailer(
     modifier: Modifier,
     game: Game,
-    onEvent: (DetailScreenEvent) -> Unit,
+    onPlayTrailer: (String) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -126,7 +129,7 @@ private fun ActionPlayTrailer(
                 .background(Color.White, CircleShape)
                 .clickable {
                     game.trailerUrl?.let {
-                        onEvent(DetailScreenEvent.PlayTrailer(it))
+                        onPlayTrailer(it)
                     }
                 }
         ) {

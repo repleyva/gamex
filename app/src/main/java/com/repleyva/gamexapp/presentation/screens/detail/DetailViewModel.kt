@@ -1,18 +1,14 @@
 package com.repleyva.gamexapp.presentation.screens.detail
 
 import androidx.lifecycle.viewModelScope
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.repleyva.core.domain.model.Game
 import com.repleyva.core.domain.use_cases.GameUseCase
 import com.repleyva.core.domain.vo.Resource.Error
 import com.repleyva.core.domain.vo.Resource.Loading
 import com.repleyva.core.domain.vo.Resource.Success
 import com.repleyva.gamexapp.presentation.base.SimpleMVIBaseViewModel
-import com.repleyva.gamexapp.presentation.screens.destinations.VideoPlayerDestination
 import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.BookmarkGame
 import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.Init
-import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.NavigateBack
-import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.PlayTrailer
 import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.ShareGame
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,25 +22,19 @@ class DetailViewModel @Inject constructor(
     private val gameUseCase: GameUseCase,
 ) : SimpleMVIBaseViewModel<DetailScreenState, DetailScreenEvent>() {
 
-    private var navigator: DestinationsNavigator? = null
-
     override fun initState(): DetailScreenState = DetailScreenState()
 
     override fun eventHandler(event: DetailScreenEvent) {
         when (event) {
-            is Init -> init(event.game, event.navigator)
-            is NavigateBack -> navigateBack()
+            is Init -> init(event.game)
             is BookmarkGame -> setBookmarked(event.id, event.bookmarked)
             is ShareGame -> shareGame(event.game, event.dismissed)
-            is PlayTrailer -> playTrailer(event.url)
         }
     }
 
     private fun init(
         game: Game,
-        navigator: DestinationsNavigator,
     ) {
-        this.navigator = navigator
         updateUi { copy(game = game) }
         viewModelScope.launch {
             fetchDetailGame(game.id)
@@ -95,14 +85,6 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             gameUseCase.setIsFavorites(isBookmarked, id)
         }
-    }
-
-    private fun playTrailer(url: String) {
-        navigator?.navigate(VideoPlayerDestination(url))
-    }
-
-    private fun navigateBack() {
-        navigator?.popBackStack()
     }
 
 }

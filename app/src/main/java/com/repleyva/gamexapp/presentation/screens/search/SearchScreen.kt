@@ -27,25 +27,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.R
-import com.repleyva.gamexapp.presentation.components.LaunchEffectOnce
 import com.repleyva.gamexapp.presentation.screens.home.components.GameItem
-import com.repleyva.gamexapp.presentation.screens.search.SearchScreenEvent.Init
-import com.repleyva.gamexapp.presentation.screens.search.SearchScreenEvent.NavigateToDetailScreen
 import com.repleyva.gamexapp.presentation.screens.search.SearchScreenEvent.OnSearchQueryChange
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral10
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral40
 import com.repleyva.gamexapp.presentation.ui.theme.Primary50
 
-@Destination
 @Composable
 fun SearchScreen(
-    navigator: DestinationsNavigator,
-    viewModel: SearchViewModel = hiltViewModel(),
+    viewModel: SearchViewModel,
+    onDetailScreen: (game: Game) -> Unit,
 ) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -72,13 +66,10 @@ fun SearchScreen(
 
         SearchResults(
             state = state,
-            viewModel = viewModel
+            onDetailScreen = onDetailScreen
         )
     }
 
-    LaunchEffectOnce {
-        viewModel.eventHandler(Init(navigator))
-    }
 }
 
 @Composable
@@ -131,7 +122,7 @@ private fun InputSearch(
 @Composable
 private fun SearchResults(
     state: SearchScreenState,
-    viewModel: SearchViewModel,
+    onDetailScreen: (game: Game) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -142,7 +133,7 @@ private fun SearchResults(
             GameItem(
                 game = it,
                 onEvent = { game ->
-                    viewModel.eventHandler(NavigateToDetailScreen(game))
+                    onDetailScreen(game)
                 }
             )
         }

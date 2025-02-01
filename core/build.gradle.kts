@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -88,8 +89,6 @@ dependencies {
     api(libs.compose.material)
     api(libs.compose.ui.graphics)
     api(libs.compose.ui.preview)
-    api(libs.compose.destination)
-    ksp(libs.compose.destination.ksp)
     api(libs.compose.navigation)
     api(libs.compose.icons.extended)
     api(libs.compose.lifecycle.viewmodel)
@@ -123,8 +122,9 @@ dependencies {
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.espresso.core)
 
     debugApi(libs.compose.ui.tooling)
     debugApi(libs.compose.ui.manifest)
+
+    implementation(libs.kotlinx.serialization)
 }

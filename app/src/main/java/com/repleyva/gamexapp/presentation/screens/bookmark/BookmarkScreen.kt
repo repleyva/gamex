@@ -15,21 +15,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.R
 import com.repleyva.gamexapp.presentation.components.LaunchEffectOnce
 import com.repleyva.gamexapp.presentation.screens.bookmark.BookmarkScreenEvent.Init
-import com.repleyva.gamexapp.presentation.screens.bookmark.BookmarkScreenEvent.NavigateToDetailScreen
 import com.repleyva.gamexapp.presentation.screens.home.components.GameItem
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral50
 import com.repleyva.gamexapp.presentation.ui.theme.Primary50
 
-@Destination
 @Composable
 fun BookmarkScreen(
-    navigator: DestinationsNavigator,
     viewModel: BookmarkViewModel = hiltViewModel(),
+    onDetailScreen: (game: Game) -> Unit,
 ) {
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -60,7 +57,7 @@ fun BookmarkScreen(
                 GameItem(
                     game = it,
                     onEvent = { game ->
-                        viewModel.eventHandler(NavigateToDetailScreen(game))
+                        onDetailScreen(game)
                     }
                 )
             }
@@ -68,7 +65,7 @@ fun BookmarkScreen(
     }
 
     LaunchEffectOnce {
-        viewModel.eventHandler(Init(navigator))
+        viewModel.eventHandler(Init)
     }
 
 }
