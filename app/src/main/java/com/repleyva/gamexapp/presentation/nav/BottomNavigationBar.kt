@@ -7,9 +7,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral50
 import com.repleyva.gamexapp.presentation.ui.theme.Primary50
@@ -39,7 +38,7 @@ fun BottomNavigationBar(
                 },
                 icon = {
                     Icon(
-                        imageVector = ImageVector.vectorResource(bottomNavItem.icon),
+                        painter = painterResource(bottomNavItem.icon),
                         contentDescription = stringResource(bottomNavItem.label),
                         tint = if (index == selected) Primary50 else Neutral50,
                         modifier = Modifier.size(26.dp)

@@ -12,7 +12,7 @@ enum class BottomBarDestination(
     @StringRes val label: Int,
     @DrawableRes val icon: Int,
 ) {
-    Home(HomeScreen, R.string.title_home, R.drawable.ic_ghost),
+    Home(HomeScreen, R.string.title_home, R.drawable.ic_game),
     Search(SearchScreen, R.string.title_search, R.drawable.ic_search),
     Bookmark(BookmarksScreen, R.string.title_bookmark, R.drawable.ic_bookmark),
 }
