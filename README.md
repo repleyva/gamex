@@ -20,6 +20,12 @@ Gamex is your ultimate gaming companion! 📱 Explore a vast list of games, view
 
 Discover and organize your favorite games with GameX! 🚀🎮
 
+# Preview
+<img src="_src/preview/home.gif" width="32%"> <img src="_src/preview/detail.gif" width="32%"> <img src="_src/preview/search.gif" width="32%"> <img src="_src/preview/bookmark.gif" width="32%">
+
+# Screenshots
+<img src="_src/screenshots/home.png" width="32%"> <img src="_src/screenshots/search.png" width="32%"> <img src="_src/screenshots/detail.png" width="32%"> <img src="_src/screenshots/bookmark.png" width="32%">
+
 # Architecture
 - Presentation: Responsible for the UI and input management
 - Domain: Contains the business logic, including the use cases and repository interfaces
