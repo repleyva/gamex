@@ -47,9 +47,9 @@ class DetailViewModel @Inject constructor(
             gameUseCase.getGameDetails(gameId).onEach { result ->
                 updateUi {
                     when (result) {
-                        is Error -> copy(isLoading = false, error = result.message)
+                        is Error -> copy(isLoading = false)
                         is Loading -> copy(isLoading = true)
-                        is Success -> copy(game = result.data, isLoading = false, error = null)
+                        is Success -> copy(game = result.data, isLoading = false)
 
                     }
                 }
@@ -62,7 +62,7 @@ class DetailViewModel @Inject constructor(
             gameUseCase.fetchGameTrailer(gameId).onEach { result ->
                 updateUi {
                     when (result) {
-                        is Error -> copy(isLoading = false, error = result.message)
+                        is Error -> copy(isLoading = false)
                         is Loading -> copy(isLoading = true)
                         is Success -> this
                     }
