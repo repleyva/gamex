@@ -11,7 +11,6 @@ import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.Bookm
 import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.Init
 import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent.ShareGame
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -36,39 +35,33 @@ class DetailViewModel @Inject constructor(
         game: Game,
     ) {
         updateUi { copy(game = game) }
-        viewModelScope.launch {
-            fetchDetailGame(game.id)
-            fetchGameTrailer(game.id)
-        }
+        fetchDetailGame(game.id)
+        fetchGameTrailer(game.id)
     }
 
     private fun fetchDetailGame(gameId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            gameUseCase.getGameDetails(gameId).onEach { result ->
-                updateUi {
-                    when (result) {
-                        is Error -> copy(isLoading = false)
-                        is Loading -> copy(isLoading = true)
-                        is Success -> copy(game = result.data, isLoading = false)
+        gameUseCase.getGameDetails(gameId).onEach { result ->
+            updateUi {
+                when (result) {
+                    is Error -> copy(isLoading = false)
+                    is Loading -> copy(isLoading = true)
+                    is Success -> copy(game = result.data, isLoading = false)
 
-                    }
                 }
-            }.launchIn(viewModelScope)
-        }
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun fetchGameTrailer(gameId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            gameUseCase.fetchGameTrailer(gameId).onEach { result ->
-                updateUi {
-                    when (result) {
-                        is Error -> copy(isLoading = false)
-                        is Loading -> copy(isLoading = true)
-                        is Success -> this
-                    }
+        gameUseCase.fetchGameTrailer(gameId).onEach { result ->
+            updateUi {
+                when (result) {
+                    is Error -> copy(isLoading = false)
+                    is Loading -> copy(isLoading = true)
+                    is Success -> this
                 }
-            }.launchIn(viewModelScope)
-        }
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun shareGame(
