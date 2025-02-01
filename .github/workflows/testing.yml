@@ -14,7 +14,7 @@ jobs:
           cache: gradle
 
       - name: Update secrets local.properties
-        run: echo "$LOCAL_PROPERTIES" > /home/runner/work/tempus/tempus/local.properties
+        run: echo "$LOCAL_PROPERTIES" > /home/runner/work/gamex/gamex/local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
 
