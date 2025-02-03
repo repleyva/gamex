@@ -24,7 +24,7 @@ android {
         versionCode = 1
         versionName = "1.0.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.repleyva.gamexapp.presentation.AppTestRunner"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -84,6 +84,20 @@ android {
 dependencies {
     implementation(project(":core"))
 
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
+    implementation(libs.compose.activity)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.preview)
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.icons.extended)
+    implementation(libs.compose.lifecycle.viewmodel)
+    implementation(libs.compose.lifecycle.runtime)
+
+    implementation(libs.androidx.runner)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     implementation(libs.androidx.ui.test.android)
@@ -97,10 +111,16 @@ dependencies {
     testImplementation(libs.truth)
     androidTestImplementation(libs.truth)
 
+    androidTestImplementation(libs.compose.ui.test)
+
     implementation(libs.kotlinx.serialization)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    implementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.hilt.android.testing)
+
 }
 
 ksp {
