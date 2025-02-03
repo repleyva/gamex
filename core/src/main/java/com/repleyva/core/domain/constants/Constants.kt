@@ -8,7 +8,7 @@ object Constants {
         id = 1000L,
         slug = "slug",
         name = "name",
-        released = "released",
+        released = "2025-01-28",
         tba = false,
         backgroundImage = "backgroundImage",
         rating = 0.0,

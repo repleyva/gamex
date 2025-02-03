@@ -9,28 +9,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.R
-import com.repleyva.gamexapp.presentation.components.LaunchEffectOnce
-import com.repleyva.gamexapp.presentation.screens.bookmark.BookmarkScreenEvent.Init
 import com.repleyva.gamexapp.presentation.screens.home.components.GameItem
 import com.repleyva.gamexapp.presentation.ui.theme.Neutral50
 import com.repleyva.gamexapp.presentation.ui.theme.Primary50
 
 @Composable
 fun BookmarkScreen(
-    viewModel: BookmarkViewModel = hiltViewModel(),
+    state: BookmarkScreenState,
     onDetailScreen: (game: Game) -> Unit,
 ) {
-
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
-
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -63,9 +55,4 @@ fun BookmarkScreen(
             }
         }
     }
-
-    LaunchEffectOnce {
-        viewModel.eventHandler(Init)
-    }
-
 }

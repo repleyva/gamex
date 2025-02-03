@@ -83,17 +83,6 @@ android {
 
 dependencies {
 
-    api(platform(libs.compose.bom))
-    api(libs.compose.activity)
-    api(libs.compose.ui)
-    api(libs.compose.material)
-    api(libs.compose.ui.graphics)
-    api(libs.compose.ui.preview)
-    api(libs.compose.navigation)
-    api(libs.compose.icons.extended)
-    api(libs.compose.lifecycle.viewmodel)
-    api(libs.compose.lifecycle.runtime)
-
     api(libs.core.ktx)
     api(libs.bundles.networking)
 
