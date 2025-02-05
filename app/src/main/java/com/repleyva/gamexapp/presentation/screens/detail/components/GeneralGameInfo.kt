@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.repleyva.core.domain.enums.ConverterDate
@@ -34,7 +35,7 @@ fun GeneralGameInfo(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.testTag("generalInfo"),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         TopDetailsGame(game)
@@ -91,6 +92,7 @@ private fun RatingInformation(game: Game) {
             rating = game.rating.toFloat(),
             modifier = Modifier
                 .height(16.dp)
+                .testTag("ratingBar")
         )
     }
 }
@@ -134,6 +136,9 @@ private fun GenreInformation(game: Game) {
             style = MaterialTheme.typography.bodyMedium,
             color = Neutral40
         )
-        TagGroup(tag = game.genres)
+        TagGroup(
+            modifier = Modifier.testTag("genres"),
+            tag = game.genres
+        )
     }
 }

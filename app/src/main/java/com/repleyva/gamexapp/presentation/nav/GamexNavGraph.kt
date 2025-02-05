@@ -19,6 +19,7 @@ import com.repleyva.gamexapp.presentation.screens.bookmark.BookmarkScreen
 import com.repleyva.gamexapp.presentation.screens.bookmark.BookmarkScreenEvent.Init
 import com.repleyva.gamexapp.presentation.screens.bookmark.BookmarkViewModel
 import com.repleyva.gamexapp.presentation.screens.detail.DetailScreen
+import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent
 import com.repleyva.gamexapp.presentation.screens.detail.DetailViewModel
 import com.repleyva.gamexapp.presentation.screens.home.HomeScreen
 import com.repleyva.gamexapp.presentation.screens.home.HomeViewModel
@@ -47,11 +48,20 @@ fun GamexNavGraph(
         }
 
         composable<DetailScreen> {
-            val detailViewModel = hiltViewModel<DetailViewModel>()
+
             navController.previousBackStackEntry?.savedStateHandle?.get<Game>("game")?.let {
+
+                val viewModel = hiltViewModel<DetailViewModel>()
+                val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+                LaunchEffectOnce {
+                    viewModel.eventHandler(DetailScreenEvent.Init(it))
+                }
+
                 DetailScreen(
+                    state = state,
                     game = it,
-                    viewModel = detailViewModel,
+                    eventHandler = viewModel::eventHandler,
                     onNavigateBack = {
                         navController.popBackStack()
                         navController.currentBackStackEntry?.savedStateHandle?.remove<Game>("game")
