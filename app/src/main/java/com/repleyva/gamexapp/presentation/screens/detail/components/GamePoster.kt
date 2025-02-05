@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -48,7 +49,9 @@ fun GamePoster(
 
         CoilImage(
             url = game.backgroundImage,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .testTag("backgroundImage")
         )
 
         Box(
@@ -67,7 +70,9 @@ fun GamePoster(
             ActionPlayTrailer(
                 game = game,
                 onPlayTrailer = onPlayTrailer,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .testTag("playTrailerButton")
             )
         }
     }
@@ -92,6 +97,7 @@ private fun TopBar(
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier
+                .testTag("backButton")
                 .size(24.dp)
                 .clickable {
                     onNavigateBack()
@@ -103,6 +109,7 @@ private fun TopBar(
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier
+                .testTag("shareButton")
                 .size(24.dp)
                 .clickable {
                     onShareGame(game)

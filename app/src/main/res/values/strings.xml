@@ -18,4 +18,5 @@
     <string name="copy_description">Description</string>
     <string name="copy_search_title">What games are you looking for?</string>
     <string name="copy_search_placeholder">Search...</string>
+    <string name="copy_tags">Tags</string>
 </resources>

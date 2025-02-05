@@ -16,7 +16,7 @@ object Constants {
         ratingsCount = 0,
         reviewsTextCount = 0,
         added = 0,
-        metacritic = 0,
+        metacritic = 10,
         playtime = 0,
         suggestionsCount = 0,
         updated = "updated",
