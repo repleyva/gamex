@@ -24,12 +24,6 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
-      - name: Upload test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: unit_test_report
-          path: app/build/reports/tests/testDebugUnitTest/
-
   instrumentation-test:
     needs: [unit-test]
     runs-on: macos-latest
@@ -50,12 +44,6 @@ jobs:
         with:
           api-level: 29
           script: ./gradlew connectedCheck
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
 
   package:
     needs: [instrumentation-test]
@@ -82,9 +70,3 @@ jobs:
 
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: expense-manager.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
