@@ -20,14 +20,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.repleyva.core.domain.model.Game
 import com.repleyva.gamexapp.R
 import com.repleyva.gamexapp.presentation.screens.home.components.GameItem
@@ -38,11 +37,10 @@ import com.repleyva.gamexapp.presentation.ui.theme.Primary50
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel,
+    state: SearchScreenState,
+    eventHandler: (SearchScreenEvent) -> Unit,
     onDetailScreen: (game: Game) -> Unit,
 ) {
-
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -61,7 +59,7 @@ fun SearchScreen(
 
         InputSearch(
             state = state,
-            viewModel = viewModel
+            eventHandler = eventHandler
         )
 
         SearchResults(
@@ -75,31 +73,32 @@ fun SearchScreen(
 @Composable
 private fun InputSearch(
     state: SearchScreenState,
-    viewModel: SearchViewModel,
+    eventHandler: (SearchScreenEvent) -> Unit,
 ) {
     TextField(
         value = state.query,
-        onValueChange = { viewModel.eventHandler(OnSearchQueryChange(it)) },
+        onValueChange = { eventHandler(OnSearchQueryChange(it)) },
         textStyle = MaterialTheme.typography.bodyLarge,
         placeholder = {
             Text(
                 text = stringResource(R.string.copy_search_placeholder),
                 color = Neutral40,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.testTag("placeholderText")
             )
         },
         leadingIcon = {
             Image(
                 painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null,
+                contentDescription = "searchIcon",
                 modifier = Modifier.size(32.dp)
             )
         },
         trailingIcon = {
             Icon(
                 imageVector = Icons.Default.Send,
-                contentDescription = null,
-                tint = Primary50
+                contentDescription = "sendIcon",
+                tint = Primary50,
             )
         },
         colors = TextFieldDefaults.colors(
@@ -116,6 +115,7 @@ private fun InputSearch(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
+            .testTag("searchInput")
     )
 }
 
@@ -125,7 +125,9 @@ private fun SearchResults(
     onDetailScreen: (game: Game) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag("searchResultList"),
         contentPadding = PaddingValues(vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
