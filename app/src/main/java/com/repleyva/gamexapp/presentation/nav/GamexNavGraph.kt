@@ -77,8 +77,14 @@ fun GamexNavGraph(
         }
 
         composable<SearchScreen> {
+
             val searchViewModel = hiltViewModel<SearchViewModel>()
-            SearchScreen(searchViewModel) {
+            val state by searchViewModel.uiState.collectAsStateWithLifecycle()
+
+            SearchScreen(
+                state = state,
+                eventHandler = searchViewModel::eventHandler
+            ) {
                 navigateToDetails(
                     navController = navController,
                     game = it
