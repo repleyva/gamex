@@ -18,8 +18,6 @@ GameX is your ultimate gaming companion! 📱 Explore a vast list of games, view
   - ⭐ **Rating**: Check the game's rating.
   - 🎥 **Trailer**: If a trailer is available, you can watch it directly in the app.
 
-Discover and organize your favorite games with GameX! 🚀🎮
-
 # Preview
 <img src="_src/preview/home.gif" width="32%"> <img src="_src/preview/detail.gif" width="32%"> <img src="_src/preview/search.gif" width="32%">
 
