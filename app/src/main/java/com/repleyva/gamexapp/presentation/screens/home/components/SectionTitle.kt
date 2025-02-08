@@ -16,7 +16,6 @@ import com.repleyva.gamexapp.presentation.ui.theme.Primary50
 fun SectionTitle(
     title: String,
     modifier: Modifier = Modifier,
-    isShowMore: Boolean = false,
 ) {
     Row(
         modifier = modifier
@@ -30,6 +29,5 @@ fun SectionTitle(
             style = MaterialTheme.typography.titleSmall,
             color = Primary50
         )
-        if (isShowMore) SeeMoreCard()
     }
 }

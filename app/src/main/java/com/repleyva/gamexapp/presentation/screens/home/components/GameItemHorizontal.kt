@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.repleyva.core.domain.model.Game
@@ -69,5 +70,6 @@ fun GameItemHorizontalLoading() {
             .width(140.dp)
             .height(200.dp)
             .shimmerEffect()
+            .testTag("itemHorizontalShimmerTag")
     )
 }
