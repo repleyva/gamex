@@ -22,6 +22,7 @@ import com.repleyva.gamexapp.presentation.screens.detail.DetailScreen
 import com.repleyva.gamexapp.presentation.screens.detail.DetailScreenEvent
 import com.repleyva.gamexapp.presentation.screens.detail.DetailViewModel
 import com.repleyva.gamexapp.presentation.screens.home.HomeScreen
+import com.repleyva.gamexapp.presentation.screens.home.HomeScreenEvent
 import com.repleyva.gamexapp.presentation.screens.home.HomeViewModel
 import com.repleyva.gamexapp.presentation.screens.search.SearchScreen
 import com.repleyva.gamexapp.presentation.screens.search.SearchViewModel
@@ -38,8 +39,15 @@ fun GamexNavGraph(
     ) {
 
         composable<HomeScreen> {
-            val homeViewModel = hiltViewModel<HomeViewModel>()
-            HomeScreen(homeViewModel) {
+
+            val viewModel = hiltViewModel<HomeViewModel>()
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+            LaunchEffectOnce {
+                viewModel.eventHandler(HomeScreenEvent.Init)
+            }
+
+            HomeScreen(state) {
                 navigateToDetails(
                     navController = navController,
                     game = it
