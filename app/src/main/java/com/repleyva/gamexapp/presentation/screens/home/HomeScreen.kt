@@ -37,6 +37,7 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .testTag("homeScreen")
     ) {
         HomeBody(
             state = state,
