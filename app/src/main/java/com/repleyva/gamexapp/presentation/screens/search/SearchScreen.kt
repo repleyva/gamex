@@ -46,7 +46,8 @@ fun SearchScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = 24.dp)
+            .testTag("searchScreen"),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 

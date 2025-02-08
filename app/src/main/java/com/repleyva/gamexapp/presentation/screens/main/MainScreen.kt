@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -52,6 +53,7 @@ fun MainScreen() {
         }
 
         Scaffold(
+            modifier = Modifier.testTag("navigatorTag"),
             bottomBar = {
                 if (shouldShowBottomBar) {
                     BottomNavigationBar(
