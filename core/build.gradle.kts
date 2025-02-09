@@ -110,10 +110,17 @@ dependencies {
     releaseImplementation(libs.chucker.no.op)
 
     testImplementation(libs.junit)
-    androidTestImplementation(platform(libs.compose.bom))
 
     debugApi(libs.compose.ui.tooling)
     debugApi(libs.compose.ui.manifest)
 
     implementation(libs.kotlinx.serialization)
+
+    testImplementation(libs.junit)
+    implementation(libs.androidx.ui.test.android)
+    testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    testImplementation(libs.coroutines.test)
+    implementation(libs.androidx.navigation.testing)
+    testImplementation(libs.truth)
 }
